@@ -53,9 +53,9 @@
           <div class="panel-section">
             <div class="section-label">{{ t('settings.presets') }}</div>
             <div class="preset-buttons">
-              <button class="btn btn-sm btn-secondary" @click="applyPreset(20, 20)">20×20</button>
               <button class="btn btn-sm btn-secondary" @click="applyPreset(29, 29)">29×29</button>
               <button class="btn btn-sm btn-secondary" @click="applyPreset(50, 50)">50×50</button>
+              <button class="btn btn-sm btn-secondary" @click="applyPreset(100, 100)">100×100</button>
             </div>
           </div>
 
@@ -163,13 +163,13 @@ function toggleLanguage() {
 }
 
 // Canvas state
-const canvasWidth = ref(20)
-const canvasHeight = ref(20)
+const canvasWidth = ref(50)
+const canvasHeight = ref(50)
 const showGrid = ref(true)
 const bgColor = ref('#ffffff')
 const currentColor = ref('#000000')
 const currentTool = ref('pen')
-const gridData = ref(Array(canvasHeight.value).fill(null).map(() => Array(canvasWidth.value).fill(null)))
+const gridData = ref(Array(50).fill(null).map(() => Array(50).fill(null)))
 const referenceImage = ref(null)
 const showReference = ref(true)
 const referenceOpacity = ref(50)
