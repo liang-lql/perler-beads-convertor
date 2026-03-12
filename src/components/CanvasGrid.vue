@@ -148,7 +148,7 @@ const containerWidth = ref(600)
 const containerHeight = ref(600)
 
 // Show headers only when cell is big enough
-const showHeaders = computed(() => cellSize.value >= 15)
+const showHeaders = computed(() => cellSize.value >= 10)
 const headerSize = computed(() => showHeaders.value ? cellSize.value : 0)
 
 // Cell size calculations
