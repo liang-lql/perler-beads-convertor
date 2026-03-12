@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install)",
+      "Bash(npm run dev)",
+      "Bash(npm install -D @vitejs/plugin-vue)",
+      "Bash(curl -s http://localhost:3000 | head -20)",
+      "Bash(npm run build)",
+      "Bash(curl -s http://localhost:3001/ | head -20)",
+      "Bash(curl -s http://localhost:3001/ > /dev/null && echo \"Server running on port 3001\" || echo \"Server not running\")",
+      "Bash(curl -s http://localhost:3001/ > /dev/null && echo \"Server running\" || echo \"Server not running\")",
+      "Bash(curl -s http://localhost:3000/ > /dev/null && echo \"Server running\" || echo \"Server not running\")",
+      "Bash(git init:*)"
+    ]
+  }
+}
