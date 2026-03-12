@@ -1,8 +1,10 @@
 # 拼豆图案生成器
 
+中文 | [English](README.md)
+
 一个基于 Web 的拼豆图案设计工具，可以将图片转换为拼豆图案，支持自定义绘制、颜色选择、图案导出和打印功能。
 
-在线体验：[Perler Beads Pattern Generator](https://perler-beads-convertor.vercel.app/)
+**[在线体验](https://perler-beads-convertor.vercel.app/)**
 
 ## 功能特点
 

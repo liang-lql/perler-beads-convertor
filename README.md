@@ -1,6 +1,10 @@
 # Perler Beads Pattern Generator
 
+[中文文档](README_CN.md) | English
+
 A web-based application for creating Perler bead patterns. This tool allows users to design, customize, and export printable patterns for Perler bead crafts.
+
+**[Live Demo](https://perler-beads-convertor.vercel.app/)**
 
 ## Features
 
