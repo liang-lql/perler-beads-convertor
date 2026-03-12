@@ -19,9 +19,11 @@
         >
           {{ getColumnLabel(x - 1) }}
         </div>
+        <!-- Corner cell for right header -->
+        <div class="header-cell corner" :style="{ width: headerSize + 'px', height: headerSize + 'px' }"></div>
       </div>
 
-      <!-- Main content: row headers + canvas -->
+      <!-- Main content: row headers + canvas + right headers -->
       <div class="main-row">
         <!-- Row headers (left) -->
         <div class="row-headers" v-if="showHeaders" :style="rowHeadersStyle">
@@ -42,6 +44,31 @@
         >
           Your browser does not support the canvas element.
         </canvas>
+
+        <!-- Row headers (right) -->
+        <div class="row-headers right" v-if="showHeaders" :style="rowHeadersStyle">
+          <div
+            v-for="y in props.height"
+            :key="'row-right-' + y"
+            class="header-cell"
+            :style="{ width: headerSize + 'px', height: cellSize + 'px' }"
+          >
+            {{ y }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Column headers (bottom) -->
+      <div class="column-headers bottom" v-if="showHeaders" :style="columnHeadersStyle">
+        <div class="header-cell corner" :style="{ width: headerSize + 'px', height: headerSize + 'px' }"></div>
+        <div
+          v-for="x in props.width"
+          :key="'col-bottom-' + x"
+          class="header-cell"
+          :style="{ width: cellSize + 'px', height: headerSize + 'px' }"
+        >
+          {{ getColumnLabel(x - 1) }}
+        </div>
       </div>
     </div>
 
@@ -764,12 +791,23 @@ watch(
   border-right: 1px solid #ccc;
 }
 
+.column-headers.bottom {
+  margin-left: 0 !important;
+  border-top: none;
+  border-bottom: 1px solid #ccc;
+}
+
 .row-headers {
   display: flex;
   flex-direction: column;
   background: #f5f5f5;
   border-left: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
+}
+
+.row-headers.right {
+  border-left: none;
+  border-right: 1px solid #ccc;
 }
 
 .header-cell {
@@ -779,6 +817,11 @@ watch(
   font-weight: 500;
   color: #555;
   flex-shrink: 0;
+  font-size: 10px;
+}
+
+.header-cell.corner {
+  background: #e8e8e8;
 }
 
 canvas {
