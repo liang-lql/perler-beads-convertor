@@ -396,10 +396,10 @@ function convertImageToBeads(img) {
   tempCanvas.width = canvasWidth.value
   tempCanvas.height = canvasHeight.value
 
-  // Calculate scaling to fit image to grid while preserving aspect ratio
+  // Calculate scaling to fill the grid (cover mode)
   const scaleX = canvasWidth.value / img.width
   const scaleY = canvasHeight.value / img.height
-  const scale = Math.min(scaleX, scaleY)
+  const scale = Math.max(scaleX, scaleY) // Use max instead of min to fill
 
   const width = img.width * scale
   const height = img.height * scale
@@ -409,7 +409,7 @@ function convertImageToBeads(img) {
   // Clear canvas with transparent background
   tempCtx.clearRect(0, 0, canvasWidth.value, canvasHeight.value)
 
-  // Draw the image scaled to fit the grid
+  // Draw the image scaled to fill the grid
   tempCtx.drawImage(img, x, y, width, height)
 
   // Get image data
