@@ -197,6 +197,8 @@ function applyPreset(w, h) {
 }
 
 // File select handler
+const imageInput = ref(null)
+
 function handleFileSelect(event) {
   const file = event.target.files[0]
   if (file && file.type.startsWith('image/')) {
@@ -211,6 +213,8 @@ function handleFileSelect(event) {
     }
     reader.readAsDataURL(file)
   }
+  // Clear the input so the same file can be selected again
+  event.target.value = ''
 }
 
 // Color statistics computed
