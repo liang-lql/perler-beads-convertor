@@ -10,7 +10,13 @@
       "Bash(curl -s http://localhost:3001/ > /dev/null && echo \"Server running on port 3001\" || echo \"Server not running\")",
       "Bash(curl -s http://localhost:3001/ > /dev/null && echo \"Server running\" || echo \"Server not running\")",
       "Bash(curl -s http://localhost:3000/ > /dev/null && echo \"Server running\" || echo \"Server not running\")",
-      "Bash(git init:*)"
+      "Bash(git init:*)",
+      "Bash(git commit:*)",
+      "Bash(git remote:*)",
+      "Bash(git push:*)",
+      "Read(//Users/lql/.ssh/**)",
+      "Bash(git add:*)",
+      "Bash(npm install:*)"
     ]
   }
 }

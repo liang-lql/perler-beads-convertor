@@ -1,7 +1,10 @@
 <template>
   <div class="app">
     <header class="app-header">
-      <h1>Perler Beads Pattern Generator</h1>
+      <h1>{{ t('app.title') }}</h1>
+      <button class="lang-switch" @click="toggleLanguage" :title="t('language.switch')">
+        {{ locale === 'en' ? '中文' : 'EN' }}
+      </button>
     </header>
 
     <div class="main-layout">
@@ -39,7 +42,7 @@
         <!-- Left Panel - Basic Settings -->
         <div class="left-panel">
           <div class="panel-section">
-            <div class="section-label">Canvas Size</div>
+            <div class="section-label">{{ t('settings.canvasSize') }}</div>
             <div class="size-inputs">
               <input type="number" v-model.number="canvasWidth" min="1" max="500" class="size-input" />
               <span>×</span>
@@ -48,7 +51,7 @@
           </div>
 
           <div class="panel-section">
-            <div class="section-label">Presets</div>
+            <div class="section-label">{{ t('settings.presets') }}</div>
             <div class="preset-buttons">
               <button class="btn btn-sm btn-secondary" @click="applyPreset(20, 20)">20×20</button>
               <button class="btn btn-sm btn-secondary" @click="applyPreset(29, 29)">29×29</button>
@@ -59,34 +62,34 @@
           <div class="panel-section">
             <label class="checkbox-row">
               <input type="checkbox" v-model="showGrid" />
-              <span>Show Grid</span>
+              <span>{{ t('settings.showGrid') }}</span>
             </label>
             <label class="checkbox-row">
               <input type="checkbox" v-model="showSplitLines" />
-              <span>Show Split Lines</span>
+              <span>{{ t('settings.showSplitLines') }}</span>
             </label>
           </div>
 
           <div class="panel-section" v-if="showSplitLines">
-            <div class="section-label">Board Size</div>
+            <div class="section-label">{{ t('settings.boardSize') }}</div>
             <div class="size-inputs">
               <input type="number" v-model.number="boardWidth" min="10" max="100" class="size-input" />
               <span>×</span>
               <input type="number" v-model.number="boardHeight" min="10" max="100" class="size-input" />
             </div>
             <div class="split-info" v-if="splitInfo">
-              {{ splitInfo.cols }} × {{ splitInfo.rows }} = {{ splitInfo.total }} boards
+              {{ splitInfo.cols }} × {{ splitInfo.rows }} = {{ splitInfo.total }} {{ t('settings.boards') }}
             </div>
           </div>
 
           <div class="panel-section">
-            <div class="section-label">Image</div>
+            <div class="section-label">{{ t('settings.image') }}</div>
             <input type="file" ref="imageInput" accept="image/*" @change="handleFileSelect" style="display: none" />
             <button class="btn btn-sm btn-secondary" @click="$refs.imageInput.click()" style="width: 100%">
-              📷 Import Image
+              📷 {{ t('settings.importImage') }}
             </button>
             <button class="btn btn-sm btn-danger" @click="handleCanvasClear" style="width: 100%; margin-top: 0.25rem;">
-              🗑️ Clear Canvas
+              🗑️ {{ t('settings.clearCanvas') }}
             </button>
           </div>
         </div>
@@ -119,7 +122,7 @@
       <!-- Color Statistics Bar -->
       <div class="color-stats-bar" v-if="colorStats.length > 0">
         <div class="stats-header">
-          <span class="stats-title">Color Statistics ({{ colorStats.length }} colors, {{ totalBeads }} beads)</span>
+          <span class="stats-title">{{ t('stats.colorStatistics') }} ({{ colorStats.length }} {{ t('stats.colors') }}, {{ totalBeads }} {{ t('stats.beads') }})</span>
         </div>
         <div class="stats-content">
           <div
@@ -143,12 +146,21 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted, watch, nextTick, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import CanvasSettings from './components/CanvasSettings.vue'
 import ColorPalette from './components/ColorPalette.vue'
 import DrawingTools from './components/DrawingTools.vue'
 import CanvasGrid from './components/CanvasGrid.vue'
 import ExportPanel from './components/ExportPanel.vue'
 import { findClosestColor, PERLER_COLORS, getColorByHex } from './utils/colors'
+
+// i18n
+const { t, locale } = useI18n()
+
+function toggleLanguage() {
+  locale.value = locale.value === 'en' ? 'zh' : 'en'
+  localStorage.setItem('perler-language', locale.value)
+}
 
 // Canvas state
 const canvasWidth = ref(20)
@@ -564,10 +576,33 @@ body {
   text-align: center;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
 .app-header h1 {
   font-size: 1.25rem;
+  margin: 0;
+}
+
+.lang-switch {
+  position: absolute;
+  right: 1rem;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.lang-switch:hover {
+  background: rgba(255, 255, 255, 0.3);
 }
 
 .main-layout {

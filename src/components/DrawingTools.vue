@@ -13,7 +13,7 @@
     </div>
 
     <div v-if="currentTool === 'brush'" class="brush-size">
-      <label>Size: {{ brushSize }}</label>
+      <label>{{ t('tools.brushSize') }}: {{ brushSize }}</label>
       <input
         type="range"
         min="1"
@@ -29,21 +29,21 @@
       <button
         class="btn btn-sm btn-secondary"
         @click="performAction('undo')"
-        title="Undo"
+        :title="t('tools.undo')"
       >
         ↶
       </button>
       <button
         class="btn btn-sm btn-secondary"
         @click="performAction('redo')"
-        title="Redo"
+        :title="t('tools.redo')"
       >
         ↷
       </button>
       <button
         class="btn btn-sm btn-secondary"
         @click="performAction('fill')"
-        title="Fill Area"
+        :title="t('tools.fill')"
       >
         🪣
       </button>
@@ -52,7 +52,10 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, watch, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const emit = defineEmits(['tool-change', 'action', 'brush-size-change'])
 
@@ -74,12 +77,12 @@ const props = defineProps({
 const currentTool = ref(props.currentTool)
 const brushSize = ref(1)
 
-const tools = [
-  { name: 'pen', label: 'Pen', icon: '✏️', description: 'Draw single bead' },
-  { name: 'brush', label: 'Brush', icon: '🖌️', description: 'Draw multiple beads' },
-  { name: 'picker', label: 'Picker', icon: '💉', description: 'Pick color from canvas' },
-  { name: 'eraser', label: 'Eraser', icon: '🧹', description: 'Erase beads' }
-]
+const tools = computed(() => [
+  { name: 'pen', label: t('tools.pen'), icon: '✏️', description: t('tools.pen') },
+  { name: 'brush', label: t('tools.brush'), icon: '🖌️', description: t('tools.brush') },
+  { name: 'picker', label: t('tools.picker'), icon: '💉', description: t('tools.picker') },
+  { name: 'eraser', label: t('tools.eraser'), icon: '🧹', description: t('tools.eraser') }
+])
 
 function selectTool(tool) {
   currentTool.value = tool

@@ -1,17 +1,20 @@
 <template>
   <div class="export-panel">
     <button class="btn btn-primary btn-sm" @click="exportImage">
-      📥 Export
+      📥 {{ t('export.export') }}
     </button>
     <button class="btn btn-secondary btn-sm" @click="printPattern">
-      🖨️ Print
+      🖨️ {{ t('export.print') }}
     </button>
   </div>
 </template>
 
 <script setup>
 import { ref, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { PERLER_COLORS } from '../utils/colors'
+
+const { t } = useI18n()
 
 const emit = defineEmits(['export', 'print'])
 
