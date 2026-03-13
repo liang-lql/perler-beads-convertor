@@ -23,7 +23,8 @@ export default {
     boards: 'boards',
     image: 'Image',
     importImage: 'Import Image',
-    clearCanvas: 'Clear Canvas'
+    clearCanvas: 'Clear Canvas',
+    imageScale: 'Image Scale'
   },
   export: {
     export: 'Export',
@@ -32,9 +33,13 @@ export default {
   stats: {
     title: 'Color Statistics',
     colors: 'colors',
-    beads: 'beads'
+    beads: 'beads',
+    colorStatistics: 'Color Statistics'
   },
   colors: {
     selectedColor: 'Selected Color'
+  },
+  language: {
+    switch: 'Switch Language'
   }
 }

@@ -23,7 +23,8 @@ export default {
     boards: '块板',
     image: '图片',
     importImage: '导入图片',
-    clearCanvas: '清空画布'
+    clearCanvas: '清空画布',
+    imageScale: '图片缩放'
   },
   export: {
     export: '导出',

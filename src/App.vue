@@ -88,6 +88,10 @@
             <button class="btn btn-sm btn-secondary" @click="$refs.imageInput.click()" style="width: 100%">
               📷 {{ t('settings.importImage') }}
             </button>
+            <div v-if="lastImportedImage" class="image-scale-control">
+              <label>{{ t('settings.imageScale') }}: {{ imageScale }}%</label>
+              <input type="range" min="10" max="100" v-model="imageScale" @input="reconvertImage" />
+            </div>
             <button class="btn btn-sm btn-danger" @click="handleCanvasClear" style="width: 100%; margin-top: 0.25rem;">
               🗑️ {{ t('settings.clearCanvas') }}
             </button>
@@ -174,6 +178,10 @@ const referenceImage = ref(null)
 const showReference = ref(true)
 const referenceOpacity = ref(50)
 
+// Image scale for conversion (percentage of canvas)
+const imageScale = ref(100)
+const lastImportedImage = ref(null)
+
 // Board split settings
 const boardWidth = ref(29)
 const boardHeight = ref(29)
@@ -206,6 +214,7 @@ function handleFileSelect(event) {
     reader.onload = (e) => {
       const img = new Image()
       img.onload = () => {
+        lastImportedImage.value = img
         referenceImage.value = img
         convertImageToBeads(img)
       }
@@ -215,6 +224,12 @@ function handleFileSelect(event) {
   }
   // Clear the input so the same file can be selected again
   event.target.value = ''
+}
+
+function reconvertImage() {
+  if (lastImportedImage.value) {
+    convertImageToBeads(lastImportedImage.value)
+  }
 }
 
 // Color statistics computed
@@ -377,6 +392,8 @@ const canvasGridRef = ref(null)
 
 function handleCanvasClear() {
   gridData.value = Array(canvasHeight.value).fill(null).map(() => Array(canvasWidth.value).fill(null))
+  lastImportedImage.value = null
+  imageScale.value = 100
 }
 
 function handleImageImport(img) {
@@ -386,7 +403,7 @@ function handleImageImport(img) {
 }
 
 function convertImageToBeads(img) {
-  console.log('Converting image to beads...', canvasWidth.value, 'x', canvasHeight.value)
+  console.log('Converting image to beads...', canvasWidth.value, 'x', canvasHeight.value, 'scale:', imageScale.value + '%')
 
   // Create a temporary canvas to process the image
   const tempCanvas = document.createElement('canvas')
@@ -396,20 +413,28 @@ function convertImageToBeads(img) {
   tempCanvas.width = canvasWidth.value
   tempCanvas.height = canvasHeight.value
 
-  // Calculate scaling to fill the grid (cover mode)
-  const scaleX = canvasWidth.value / img.width
-  const scaleY = canvasHeight.value / img.height
-  const scale = Math.max(scaleX, scaleY) // Use max instead of min to fill
+  // Calculate the usable area based on imageScale
+  const usableWidth = canvasWidth.value * (imageScale.value / 100)
+  const usableHeight = canvasHeight.value * (imageScale.value / 100)
+
+  // Calculate scaling to fill the usable area (cover mode)
+  const scaleX = usableWidth / img.width
+  const scaleY = usableHeight / img.height
+  const scale = Math.max(scaleX, scaleY) // Use max to fill
 
   const width = img.width * scale
   const height = img.height * scale
-  const x = (canvasWidth.value - width) / 2
-  const y = (canvasHeight.value - height) / 2
+
+  // Center the image within the usable area
+  const offsetX = (canvasWidth.value - usableWidth) / 2
+  const offsetY = (canvasHeight.value - usableHeight) / 2
+  const x = offsetX + (usableWidth - width) / 2
+  const y = offsetY + (usableHeight - height) / 2
 
   // Clear canvas with transparent background
   tempCtx.clearRect(0, 0, canvasWidth.value, canvasHeight.value)
 
-  // Draw the image scaled to fill the grid
+  // Draw the image scaled to fill the usable area
   tempCtx.drawImage(img, x, y, width, height)
 
   // Get image data
@@ -724,6 +749,25 @@ body {
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
   text-align: center;
+}
+
+.image-scale-control {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  background: #f5f5f5;
+  border-radius: 4px;
+}
+
+.image-scale-control label {
+  display: block;
+  font-size: 0.75rem;
+  color: #666;
+  margin-bottom: 0.25rem;
+}
+
+.image-scale-control input[type="range"] {
+  width: 100%;
+  cursor: pointer;
 }
 
 .canvas-area {

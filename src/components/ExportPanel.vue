@@ -171,12 +171,12 @@ function createExportCanvas(options, startX, startY, boardW, boardH) {
 
   const cellSize = 20 * options.scale
 
-  // Add space for coordinate labels
-  const headerSize = Math.max(20, cellSize * 0.8) // Space for column numbers
-  const rowLabelSize = Math.max(20, cellSize * 0.6) // Space for row numbers
+  // Add space for coordinate labels on all four sides
+  const headerSize = Math.max(20, cellSize * 0.8) // Space for column numbers (top and bottom)
+  const rowLabelSize = Math.max(20, cellSize * 0.6) // Space for row numbers (left and right)
 
-  let canvasWidth = boardW * cellSize + rowLabelSize
-  let canvasHeight = boardH * cellSize + headerSize
+  let canvasWidth = boardW * cellSize + rowLabelSize * 2 // left + right
+  let canvasHeight = boardH * cellSize + headerSize * 2 // top + bottom
 
   canvas.width = canvasWidth
   canvas.height = canvasHeight
@@ -188,7 +188,9 @@ function createExportCanvas(options, startX, startY, boardW, boardH) {
   // Draw coordinate labels background
   ctx.fillStyle = '#E8E8E8'
   ctx.fillRect(0, 0, canvasWidth, headerSize) // Top header
+  ctx.fillRect(0, canvasHeight - headerSize, canvasWidth, headerSize) // Bottom header
   ctx.fillRect(0, 0, rowLabelSize, canvasHeight) // Left header
+  ctx.fillRect(canvasWidth - rowLabelSize, 0, rowLabelSize, canvasHeight) // Right header
 
   // Draw column numbers (top)
   ctx.fillStyle = '#333333'
@@ -202,11 +204,25 @@ function createExportCanvas(options, startX, startY, boardW, boardH) {
     ctx.fillText(colNum.toString(), centerX, headerSize / 2)
   }
 
+  // Draw column numbers (bottom)
+  for (let x = 0; x < boardW; x++) {
+    const colNum = startX + x + 1
+    const centerX = rowLabelSize + x * cellSize + cellSize / 2
+    ctx.fillText(colNum.toString(), centerX, canvasHeight - headerSize / 2)
+  }
+
   // Draw row numbers (left)
   for (let y = 0; y < boardH; y++) {
     const rowNum = startY + y + 1 // Row number (1-based)
     const centerY = headerSize + y * cellSize + cellSize / 2
     ctx.fillText(rowNum.toString(), rowLabelSize / 2, centerY)
+  }
+
+  // Draw row numbers (right)
+  for (let y = 0; y < boardH; y++) {
+    const rowNum = startY + y + 1
+    const centerY = headerSize + y * cellSize + cellSize / 2
+    ctx.fillText(rowNum.toString(), canvasWidth - rowLabelSize / 2, centerY)
   }
 
   // Draw beads
@@ -252,14 +268,14 @@ function createExportCanvas(options, startX, startY, boardW, boardH) {
     for (let x = 0; x <= boardW; x++) {
       ctx.beginPath()
       ctx.moveTo(rowLabelSize + x * cellSize, headerSize)
-      ctx.lineTo(rowLabelSize + x * cellSize, canvasHeight)
+      ctx.lineTo(rowLabelSize + x * cellSize, canvasHeight - headerSize)
       ctx.stroke()
     }
 
     for (let y = 0; y <= boardH; y++) {
       ctx.beginPath()
       ctx.moveTo(rowLabelSize, headerSize + y * cellSize)
-      ctx.lineTo(canvasWidth, headerSize + y * cellSize)
+      ctx.lineTo(canvasWidth - rowLabelSize, headerSize + y * cellSize)
       ctx.stroke()
     }
   }
