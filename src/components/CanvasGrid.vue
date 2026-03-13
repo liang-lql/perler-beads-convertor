@@ -862,4 +862,44 @@ canvas {
   font-weight: 500;
   box-shadow: 0 1px 4px rgba(0,0,0,0.1);
 }
+
+/* Mobile responsive styles */
+@media (max-width: 600px) {
+  .zoom-controls {
+    bottom: 5px;
+    right: 5px;
+    padding: 0.3rem;
+    gap: 0.3rem;
+    font-size: 0.7rem;
+  }
+
+  .zoom-level {
+    font-size: 0.65rem;
+    min-width: 35px;
+  }
+
+  .zoom-controls .btn {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.4rem;
+  }
+
+  .position-info {
+    bottom: 5px;
+    left: 5px;
+    font-size: 0.65rem;
+    padding: 0.15rem 0.3rem;
+  }
+
+  .header-cell {
+    font-size: 8px !important;
+  }
+}
+
+@media (max-width: 400px) {
+  .zoom-controls {
+    flex-wrap: wrap;
+    max-width: 100px;
+    justify-content: center;
+  }
+}
 </style>

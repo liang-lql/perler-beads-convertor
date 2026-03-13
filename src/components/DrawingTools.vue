@@ -142,4 +142,34 @@ watch(() => props.currentTool, (newVal) => {
   display: flex;
   gap: 0.25rem;
 }
+
+@media (max-width: 600px) {
+  .drawing-tools {
+    gap: 0.3rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .brush-size {
+    padding: 0.2rem 0.4rem;
+  }
+
+  .brush-size label {
+    font-size: 0.65rem;
+  }
+
+  .brush-size input[type="range"] {
+    width: 50px;
+  }
+
+  .divider {
+    display: none;
+  }
+
+  .tool-buttons .btn,
+  .action-buttons .btn {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.85rem;
+  }
+}
 </style>

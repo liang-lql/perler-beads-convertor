@@ -854,14 +854,26 @@ body {
   .top-toolbar {
     flex-direction: column;
     align-items: stretch;
+    gap: 0.4rem;
   }
 
   .toolbar-section {
     flex-wrap: wrap;
+    justify-content: center;
   }
 
   .colors-section {
     min-width: auto;
+    order: 2;
+  }
+
+  .tools-section {
+    order: 1;
+  }
+
+  .actions-section {
+    order: 3;
+    justify-content: center;
   }
 
   .content-area {
@@ -871,13 +883,96 @@ body {
   .left-panel {
     width: 100%;
     min-width: auto;
-    max-height: 150px;
+    max-height: none;
     flex-direction: row;
     flex-wrap: wrap;
+    gap: 0.5rem;
+    order: 2;
   }
 
   .panel-section {
-    flex-direction: column;
+    flex: 1;
+    min-width: 140px;
+  }
+
+  .canvas-area {
+    min-height: 300px;
+    order: 1;
+  }
+
+  .color-stats-bar {
+    max-height: 100px;
+    order: 3;
+  }
+}
+
+/* Mobile devices - smaller screens */
+@media (max-width: 600px) {
+  .app-header {
+    padding: 0.5rem;
+  }
+
+  .app-header h1 {
+    font-size: 1rem;
+  }
+
+  .lang-switch {
+    padding: 0.2rem 0.5rem;
+    font-size: 0.7rem;
+    right: 0.5rem;
+  }
+
+  .main-layout {
+    padding: 0.25rem;
+    gap: 0.25rem;
+  }
+
+  .top-toolbar {
+    padding: 0.4rem;
+  }
+
+  .toolbar-section {
+    gap: 0.25rem;
+  }
+
+  .left-panel {
+    padding: 0.5rem;
+    gap: 0.5rem;
+  }
+
+  .panel-section {
+    min-width: 120px;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+  }
+
+  .size-input {
+    width: 40px;
+    font-size: 0.75rem;
+    padding: 0.2rem;
+  }
+
+  .preset-buttons {
+    gap: 0.2rem;
+  }
+
+  .preset-buttons .btn {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.4rem;
+  }
+
+  .checkbox-row {
+    font-size: 0.7rem;
+  }
+
+  .image-scale-control {
+    padding: 0.3rem;
+  }
+
+  .image-scale-control label {
+    font-size: 0.65rem;
   }
 
   .canvas-area {
@@ -885,7 +980,75 @@ body {
   }
 
   .color-stats-bar {
-    max-height: 120px;
+    padding: 0.5rem;
+    max-height: 80px;
+  }
+
+  .stats-title {
+    font-size: 0.75rem;
+  }
+
+  .stat-item {
+    padding: 0.15rem 0.3rem;
+  }
+
+  .stat-color {
+    width: 16px;
+    height: 16px;
+  }
+
+  .stat-code {
+    font-size: 0.65rem;
+  }
+
+  .stat-count {
+    font-size: 0.55rem;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 400px) {
+  .app-header h1 {
+    font-size: 0.85rem;
+  }
+
+  .top-toolbar {
+    gap: 0.3rem;
+  }
+
+  .left-panel {
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+
+  .panel-section {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    min-width: auto;
+    width: 100%;
+    gap: 0.3rem;
+  }
+
+  .section-label {
+    width: 100%;
+  }
+
+  .size-inputs {
+    flex: 1;
+  }
+
+  .preset-buttons {
+    flex: 1;
+  }
+
+  .checkbox-row {
+    flex: 1;
+    min-width: 45%;
+  }
+
+  .colors-section .color-scroll {
+    max-width: 100%;
   }
 }
 </style>

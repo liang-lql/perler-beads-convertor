@@ -118,6 +118,7 @@ watch(() => recentColors.value, (newVal) => {
   overflow-x: auto;
   overflow-y: hidden;
   max-width: 400px;
+  -webkit-overflow-scrolling: touch;
 }
 
 .preset-colors {
@@ -145,5 +146,49 @@ watch(() => recentColors.value, (newVal) => {
 .color-item.active {
   box-shadow: 0 0 0 2px #4a90e2;
   transform: scale(1.1);
+}
+
+@media (max-width: 900px) {
+  .color-scroll {
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 600px) {
+  .color-palette {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .color-scroll {
+    max-width: 100%;
+    flex: 1;
+  }
+
+  .selected-preview {
+    width: 24px;
+    height: 24px;
+  }
+
+  .selected-code {
+    font-size: 0.65rem;
+  }
+
+  .color-item {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 400px) {
+  .color-item {
+    width: 18px;
+    height: 18px;
+  }
+
+  .selected-preview {
+    width: 22px;
+    height: 22px;
+  }
 }
 </style>

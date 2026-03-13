@@ -163,3 +163,73 @@ body {
   border-color: var(--gray-dark);
   box-shadow: 0 0 0 2px white, 0 0 0 4px var(--gray-dark);
 }
+
+/* Mobile touch-friendly styles */
+@media (max-width: 900px) {
+  .btn {
+    min-height: 36px;
+    min-width: 36px;
+  }
+
+  .btn-sm {
+    min-height: 32px;
+  }
+}
+
+@media (max-width: 600px) {
+  body {
+    font-size: 14px;
+  }
+
+  .btn {
+    padding: 0.4rem 0.8rem;
+    min-height: 40px;
+  }
+
+  .btn-sm {
+    padding: 0.3rem 0.5rem;
+    font-size: 0.7rem;
+    min-height: 36px;
+  }
+
+  .card {
+    padding: 0.75rem;
+  }
+
+  .card-header {
+    font-size: 0.9rem;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .btn:hover {
+    transform: none;
+  }
+
+  .color-item:hover {
+    transform: none;
+  }
+
+  /* Larger touch targets */
+  .btn {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Prevent text selection on interactive elements */
+.btn,
+.color-item,
+.header-cell,
+.stat-item {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Smooth scrolling for mobile */
+.color-scroll,
+.stats-content {
+  -webkit-overflow-scrolling: touch;
+}
